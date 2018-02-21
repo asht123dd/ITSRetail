@@ -1,12 +1,17 @@
 package com.sdl.dart.itsretail;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.Button;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 public class PotatoActivity extends AppCompatActivity {
     String btnText="";
@@ -32,5 +37,26 @@ public class PotatoActivity extends AppCompatActivity {
         }
         else
             button.setText("Update quote");
+    }
+    @Override
+    protected void onStart(){
+        super.onStart();
+        mPotatoRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                btnText=dataSnapshot.getValue(String.class);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+    }
+    protected void getPotatoQuotes(View v){
+        Log.d("xyzr22","this is getPotatoQuotes");
+        Intent intent = new Intent(v.getContext(), AllQuotesActivity.class);
+        intent.putExtra("commodity","potato");
+        startActivity(intent);
     }
 }
