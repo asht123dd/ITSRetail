@@ -33,14 +33,16 @@ public class AllQuotesActivity extends AppCompatActivity {
         setContentView(R.layout.activity_all_quotes);
         i=0;
         j=0;
-
+        final String commodity=getIntent().getStringExtra("commodity");
+        //Log.v("xyzr22",commodity);
         pr=new ArrayList<Float>();
         quantity=new ArrayList<>();
         mQuotesRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                    if(snapshot.child("commodity").getValue(String.class).equalsIgnoreCase("wheat"))
+                  //  Log.d("xyzr22",commodity);
+                    if(snapshot.child("commodity").getValue(String.class).equalsIgnoreCase(commodity))
                     {
                         f = snapshot.child("price").getValue(Float.class);
                         prAdd(f);

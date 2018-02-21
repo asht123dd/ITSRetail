@@ -25,6 +25,7 @@ public class WheatActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         Log.d("xyzr22","before set successful!!");
         setContentView(R.layout.activity_wheat);
         Log.d("xyzr22","creation successfull, "+btnText);
@@ -56,6 +57,7 @@ public class WheatActivity extends AppCompatActivity {
     protected void getWheatQuotes(View v){
         Log.d("xyzr22","this is getWheatQuotes");
         Intent intent = new Intent(v.getContext(), AllQuotesActivity.class);
+        intent.putExtra("commodity","wheat");
         startActivity(intent);
     }
 }
