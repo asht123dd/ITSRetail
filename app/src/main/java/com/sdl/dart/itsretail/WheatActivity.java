@@ -60,4 +60,10 @@ public class WheatActivity extends AppCompatActivity {
         intent.putExtra("commodity","wheat");
         startActivity(intent);
     }
+    protected void setWheatQuote(View v){
+        Log.d("xyzr22","this is setWheatQuotes");
+        Intent intent = new Intent(v.getContext(), SetQuotesActivity.class);
+        intent.putExtra("commodity","wheat");
+        startActivity(intent);
+    }
 }

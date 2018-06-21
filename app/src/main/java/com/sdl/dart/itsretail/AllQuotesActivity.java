@@ -4,8 +4,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Gravity;
-import android.widget.CheckBox;
-import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TableLayout;
 import android.widget.TableRow;

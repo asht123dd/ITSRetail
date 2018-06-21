@@ -24,7 +24,11 @@
         </activity>
         <activity android:name=".WheatActivity" />
         <activity android:name=".PotatoActivity" />
-        <activity android:name=".AllQuotesActivity"></activity>
+        <activity android:name=".AllQuotesActivity" />
+        <activity
+            android:name=".SetQuotesActivity"
+            android:label="@string/title_activity_set_quotes"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>
