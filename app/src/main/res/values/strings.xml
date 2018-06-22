@@ -11,4 +11,6 @@
     <string name="quantity">Quantity</string>
     <string name="set">set</string>
     <string name="price">Price</string>
+    <string name="my_quotes">my quotes</string>
+    <string name="tons_on_offer">Tons on offer</string>
 </resources>

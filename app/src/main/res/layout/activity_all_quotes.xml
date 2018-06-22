@@ -10,45 +10,46 @@
     <TableRow
         android:id="@+id/tableRow1"
         android:layout_width="0dp"
-        android:layout_height="36dp"
-        android:layout_marginBottom="6dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="5dp"
         android:layout_marginEnd="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:weightSum="8"
-        app:layout_constraintBottom_toTopOf="@+id/tabLayout"
+        app:layout_constraintBottom_toTopOf="@+id/dynamicPrices"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <TextView
-            android:id="@+id/priceHeader"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:id="@+id/layout1"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="4"
-            android:gravity="center"
-            android:text="Price" />
+            android:orientation="horizontal">
 
-        <TextView
-            android:id="@+id/quantityHeader"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="4"
-            android:gravity="center"
-            android:text="Tons on offer" />
+            <Button
+                android:id="@+id/priceButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:onClick="change"
+                android:text="Price" />
+        </LinearLayout>
     </TableRow>
 
-    <TableLayout
-        android:id="@+id/tabLayout"
+    <ListView
+        android:id="@+id/dynamicPrices"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
         android:layout_marginStart="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tableRow1">
+        app:layout_constraintTop_toBottomOf="@+id/tableRow1" />
 
-    </TableLayout>
 </android.support.constraint.ConstraintLayout>

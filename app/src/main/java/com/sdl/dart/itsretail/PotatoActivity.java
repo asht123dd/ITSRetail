@@ -65,4 +65,10 @@ public class PotatoActivity extends AppCompatActivity {
         intent.putExtra("commodity","potato");
         startActivity(intent);
     }
+    protected void getMyQuotes(View v){
+        Log.d("xyzr22","this is getMyQuotes");
+        Intent intent = new Intent(v.getContext(), MyQuotesActivity.class);
+        intent.putExtra("commodity","potato");
+        startActivity(intent);
+    }
 }
