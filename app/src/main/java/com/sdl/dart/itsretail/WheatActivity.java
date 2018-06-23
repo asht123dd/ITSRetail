@@ -29,7 +29,7 @@ public class WheatActivity extends AppCompatActivity {
         Log.d("xyzr22","before set successful!!");
         setContentView(R.layout.activity_wheat);
         Log.d("xyzr22","creation successfull, "+btnText);
-        button=findViewById(R.id.button3);
+        /*button=findViewById(R.id.button3);
        // db=new DatabaseManager();
        // s=db.getStatus("wheat");
         if(btnText.equalsIgnoreCase("no"))
@@ -37,7 +37,7 @@ public class WheatActivity extends AppCompatActivity {
             button.setText("Give a quote");
         }
         else
-            button.setText("Update quote");
+            button.setText("Update quote");*/
     }
     @Override
     protected void onStart(){

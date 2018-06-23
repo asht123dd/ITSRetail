@@ -28,15 +28,15 @@ public class PotatoActivity extends AppCompatActivity {
         setContentView(R.layout.activity_potato);
 
         Log.d("xyzr22","creation successfull, "+btnText);
-        button=findViewById(R.id.button4);
+//        button=findViewById(R.id.button4);
         // db=new DatabaseManager();
         // s=db.getStatus("wheat");
-        if(btnText.equalsIgnoreCase("no"))
+      /*  if(btnText.equalsIgnoreCase("no"))
         {
             button.setText("Give a quote");
         }
         else
-            button.setText("Update quote");
+            button.setText("Update quote");*/
     }
     @Override
     protected void onStart(){
