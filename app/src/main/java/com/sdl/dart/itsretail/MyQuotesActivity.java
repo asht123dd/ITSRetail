@@ -13,6 +13,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RatingBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -104,7 +105,9 @@ public class MyQuotesActivity extends Fragment {
                     mQIDRef.child("quality").setValue(quality);
 
                 }
+                Toast.makeText(getActivity(),"Save successful!!", Toast.LENGTH_SHORT).show();
             }
+
         });
        // setContentView(R.layout.activity_my_quotes);
        /* Log.d("xyzr22","creation successfull, "+btnText);

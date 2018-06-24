@@ -179,6 +179,8 @@ public class QuotesTabbed extends AppCompatActivity {
         viewPager.setAdapter(adapter);
         viewPager.addOnPageChangeListener(new
                 TabLayout.TabLayoutOnPageChangeListener(tabLayout));
+        TabLayout.Tab tab = tabLayout.getTabAt(i-1);
+        tab.select();
 
     }
 

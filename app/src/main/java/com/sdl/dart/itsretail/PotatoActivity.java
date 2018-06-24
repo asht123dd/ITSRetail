@@ -67,7 +67,7 @@ public class PotatoActivity extends AppCompatActivity {
     }
     protected void getMyQuotes(View v){
         Log.d("xyzr22","this is getMyQuotes");
-        Intent intent = new Intent(v.getContext(), MyQuotesActivity.class);
+        Intent intent = new Intent(v.getContext(), QuotesTabbed.class);
         intent.putExtra("commodity","potato");
         startActivity(intent);
     }
