@@ -41,7 +41,7 @@ public class TabPagerAdapter extends FragmentPagerAdapter {
                 bundle=new Bundle();
                 bundle.putString("QID",QID.get(0));
                 bundle.putString("commodity",commodity);
-
+                bundle.putString("RID","RID1");
                 MyQuotesActivity tab1 = new MyQuotesActivity();
                 tab1.setArguments(bundle);
                 return tab1;
@@ -49,6 +49,7 @@ public class TabPagerAdapter extends FragmentPagerAdapter {
                 bundle=new Bundle();
                 bundle.putString("QID",QID.get(1));
                 bundle.putString("commodity",commodity);
+                bundle.putString("RID","RID1");
 
                 MyQuotesActivity tab2 = new MyQuotesActivity();
                 tab2.setArguments(bundle);
@@ -57,6 +58,7 @@ public class TabPagerAdapter extends FragmentPagerAdapter {
                 bundle=new Bundle();
                 bundle.putString("QID",QID.get(2));
                 bundle.putString("commodity",commodity);
+                bundle.putString("RID","RID1");
 
                 MyQuotesActivity tab3 = new MyQuotesActivity();
                 tab3.setArguments(bundle);
@@ -65,6 +67,7 @@ public class TabPagerAdapter extends FragmentPagerAdapter {
                 bundle=new Bundle();
                 bundle.putString("QID",QID.get(3));
                 bundle.putString("commodity",commodity);
+                bundle.putString("RID","RID1");
 
                 MyQuotesActivity tab4 = new MyQuotesActivity();
                 tab4.setArguments(bundle);
@@ -73,6 +76,7 @@ public class TabPagerAdapter extends FragmentPagerAdapter {
                 bundle=new Bundle();
                 bundle.putString("QID",QID.get(4));
                 bundle.putString("commodity",commodity);
+                bundle.putString("RID","RID1");
 
                 MyQuotesActivity tab5 = new MyQuotesActivity();
                 tab5.setArguments(bundle);

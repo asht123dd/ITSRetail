@@ -48,6 +48,7 @@ public class MyQuotesActivity extends Fragment {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
             QID= getArguments().getString("QID");
+            RID=getArguments().getString("RID");
             commodity=getArguments().getString("commodity");
             if(QID.equals("new"))
             {
@@ -74,21 +75,29 @@ public class MyQuotesActivity extends Fragment {
                 // do something
                 Log.d("xyzr22","this is save");
                 Map<String,Quote> newQuote=new HashMap<>();
-                mQuotesCount.addListenerForSingleValueEvent(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(DataSnapshot dataSnapshot) {
-                        quoteCount=dataSnapshot.getValue(Integer.class);
+                if(freshTab) {
+                    mQuotesCount.addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+                            quoteCount = dataSnapshot.getValue(Integer.class);
+                            addQuote();
+                            Log.d("xyzr22", "quoteCount = " + quoteCount);
+                        }
 
-                        Log.d("xyzr22","quoteCount = "+quoteCount);
-                    }
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
 
-                    @Override
-                    public void onCancelled(DatabaseError databaseError) {
+                        }
+                    });
 
-                    }
-                });
-                newQuote.put("QID"+(quoteCount+1), new Quote(price, quantity,quality,commodity));
-                mQuotesRef.child("QID"+(quoteCount+1)).child("price").setValue(price);
+                }
+                else
+                {
+                    mQIDRef.child("price").setValue(price);
+                    mQIDRef.child("quantity").setValue(quantity);
+                    mQIDRef.child("quality").setValue(quality);
+
+                }
             }
         });
        // setContentView(R.layout.activity_my_quotes);
@@ -171,6 +180,7 @@ if(!freshTab) {
             @Override
             public void onRatingChanged(RatingBar ratingBar, float v, boolean b) {
                 mRatingScale.setText(String.valueOf(v));
+                quality=(int)ratingBar.getRating();
 //                mQualityRef.setValue(ratingBar.getRating());
                 switch ((int) ratingBar.getRating()) {
                     case 1:
@@ -196,6 +206,17 @@ if(!freshTab) {
 
         return view;
     }
+    public void addQuote()
+    {
+        mQuotesCount.setValue(quoteCount + 1);
+       // newQuote.put("QID" + (quoteCount + 1), new Quote(price, quantity, quality, commodity));
+        mQuotesRef.child("QID" + (quoteCount + 1)).child("price").setValue(price);
+        mQuotesRef.child("QID" + (quoteCount + 1)).child("quantity").setValue(quantity);
+        mQuotesRef.child("QID" + (quoteCount + 1)).child("quality").setValue(quality);
+        mQuotesRef.child("QID" + (quoteCount + 1)).child("commodity").setValue(commodity);
+        mQuotesRef.child("QID" + (quoteCount + 1)).child("RID").setValue(RID);
+    }
+
     public void initialize()
     {
 
