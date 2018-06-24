@@ -49,14 +49,14 @@ public class QuotesTabbed extends AppCompatActivity {
     DatabaseReference mQuotesRef;
     DatabaseReference mNewQuoteRef;
 
-    String newQuoteList;
+    String newQuoteList,commodity;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_quotes_tabbed);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        final String commodity=getIntent().getStringExtra("commodity");
+        commodity=getIntent().getStringExtra("commodity");
         mQuotesRef=mRIDRef.child(commodity);
 
 
@@ -132,9 +132,10 @@ public class QuotesTabbed extends AppCompatActivity {
             tabLayout.addTab(tabLayout.newTab().setText("Quote " + (i + 1)));
             i++;
         }
+
         adapter = new TabPagerAdapter
                 (getSupportFragmentManager(),
-                        tabLayout.getTabCount(),QID);
+                        tabLayout.getTabCount(),QID,commodity);
         viewPager.setAdapter(adapter);
         viewPager.addOnPageChangeListener(new
                 TabLayout.TabLayoutOnPageChangeListener(tabLayout));
@@ -150,19 +151,7 @@ public class QuotesTabbed extends AppCompatActivity {
         }
         tabLayout.addTab(tabLayout.newTab().setText("Quote "+(i+1)));
         i++;
-        mQuotesCount.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                quoteCount=dataSnapshot.getValue(Integer.class);
-                createTab();
-                Log.d("xyzr22","quoteCount = "+quoteCount);
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
+        createTab();
 
 
     }
@@ -186,7 +175,7 @@ public class QuotesTabbed extends AppCompatActivity {
 
         adapter = new TabPagerAdapter
                 (getSupportFragmentManager(),
-                        tabLayout.getTabCount());
+                        tabLayout.getTabCount(),commodity);
         viewPager.setAdapter(adapter);
         viewPager.addOnPageChangeListener(new
                 TabLayout.TabLayoutOnPageChangeListener(tabLayout));

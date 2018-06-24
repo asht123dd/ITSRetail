@@ -3,15 +3,26 @@ package com.sdl.dart.itsretail;
 public class Quote {
     Double price;
     int quantity, quality;
+    String commodity;
 
-    public Quote(Double price, int quantity, int quality) {
+    public String getCommodity() {
+        return commodity;
+    }
+
+    public Quote(Double price, int quantity, int quality, String commodity) {
         this.price = price;
         this.quantity = quantity;
         this.quality = quality;
+        this.commodity=commodity;
+
     }
 
     public Double getPrice() {
         return price;
+    }
+
+    public void setCommodity(String commodity) {
+        this.commodity = commodity;
     }
 
     public void setPrice(Double price) {

@@ -1,5 +1,7 @@
 package com.sdl.dart.itsretail;
 
+import android.content.Intent;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -7,6 +9,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RatingBar;
 import android.widget.TextView;
@@ -17,16 +20,21 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class MyQuotesActivity extends Fragment {
     DatabaseReference mRootRef = FirebaseDatabase.getInstance().getReference();
     DatabaseReference mQuotesRef=mRootRef.child("quotes");
     DatabaseReference mQIDRef;
     DatabaseReference mPriceRef;
     DatabaseReference mQuantityRef;
-
+    DatabaseReference mQuotesCount=mRootRef.child("quotesCount");
+    int quoteCount;
+    FloatingActionButton save;
     DatabaseReference mQualityRef;
 
-    float price;
+    double price;
     int quantity, quality;
     boolean freshTab=false;
     String QID, RID;
@@ -40,12 +48,14 @@ public class MyQuotesActivity extends Fragment {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
             QID= getArguments().getString("QID");
+            commodity=getArguments().getString("commodity");
             if(QID.equals("new"))
             {
                 freshTab=true;
             }
-            if(!freshTab)
-            mQIDRef=mQuotesRef.child(QID);
+            if(!freshTab) {
+                mQIDRef = mQuotesRef.child(QID);
+            }
         }
     }
     @Override
@@ -55,6 +65,32 @@ public class MyQuotesActivity extends Fragment {
         Log.d("xyzr22","my quotes fragment creation");
         View view;
         view=inflater.inflate(R.layout.activity_my_quotes, container, false);
+        save=view.findViewById(R.id.saveButton);
+        save.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                // do something
+                Log.d("xyzr22","this is save");
+                Map<String,Quote> newQuote=new HashMap<>();
+                mQuotesCount.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        quoteCount=dataSnapshot.getValue(Integer.class);
+
+                        Log.d("xyzr22","quoteCount = "+quoteCount);
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+
+                    }
+                });
+                newQuote.put("QID"+(quoteCount+1), new Quote(price, quantity,quality,commodity));
+                mQuotesRef.child("QID"+(quoteCount+1)).child("price").setValue(price);
+            }
+        });
        // setContentView(R.layout.activity_my_quotes);
        /* Log.d("xyzr22","creation successfull, "+btnText);
         button=findViewById(R.id.button3);
@@ -78,16 +114,16 @@ if(!freshTab) {
     mQIDRef.addListenerForSingleValueEvent(new ValueEventListener() {
         @Override
         public void onDataChange(DataSnapshot dataSnapshot) {
-            initialize();
-            price = dataSnapshot.child("price").getValue(Float.class);
-            priceView.setText(Float.toString(price));
+           initialize();
+            price = dataSnapshot.child("price").getValue(Double.class);
+            priceView.setText(Double.toString(price));
             quantity = dataSnapshot.child("quantity").getValue(Integer.class);
             quantityView.setText(Integer.toString(quantity));
-            if (dataSnapshot.child("quality") == null) {
-                quality = 0;
+            if (dataSnapshot.child("quality").exists()) {
+                quality = dataSnapshot.child("quality").getValue(Integer.class);
             } else {
                 Log.d("xyzr22", "dataSnapshot.child(\"quality\")!=null");
-                quality = dataSnapshot.child("quality").getValue(Integer.class);
+                quality = 0;
             }
             mRatingBar.setRating(quality);
         }
@@ -135,7 +171,7 @@ if(!freshTab) {
             @Override
             public void onRatingChanged(RatingBar ratingBar, float v, boolean b) {
                 mRatingScale.setText(String.valueOf(v));
-                mQualityRef.setValue(ratingBar.getRating());
+//                mQualityRef.setValue(ratingBar.getRating());
                 switch ((int) ratingBar.getRating()) {
                     case 1:
                         mRatingScale.setText("Inedible");
@@ -167,7 +203,7 @@ if(!freshTab) {
             mQuantityRef = mQIDRef.child("quantity");
             mQualityRef = mQIDRef.child("quality");
 
-            priceView.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+           /* priceView.setOnFocusChangeListener(new View.OnFocusChangeListener() {
                 @Override
                 public void onFocusChange(View view, boolean focus) {
                     if (focus == false) {
@@ -182,9 +218,10 @@ if(!freshTab) {
                         mQuantityRef.setValue(Float.parseFloat(quantityView.getText().toString()));
                     }
                 }
-            });
+            });*/
 
     }
+
 
 
 }
