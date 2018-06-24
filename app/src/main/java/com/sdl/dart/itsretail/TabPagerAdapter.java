@@ -15,6 +15,7 @@ public class TabPagerAdapter extends FragmentPagerAdapter {
     ArrayList<String> QID=new ArrayList<>();
     Bundle bundle;
     String commodity;
+    MyQuotesActivity tab1,tab2,tab3,tab4,tab5;
     public TabPagerAdapter(FragmentManager fm, int numberOfTabs, ArrayList<String> QID,String commodity) {
         super(fm);
         this.tabCount = numberOfTabs;
@@ -43,7 +44,7 @@ public class TabPagerAdapter extends FragmentPagerAdapter {
                 bundle.putString("QID",QID.get(0));
                 bundle.putString("commodity",commodity);
                 bundle.putString("RID","RID1");
-                MyQuotesActivity tab1 = new MyQuotesActivity();
+                tab1 = new MyQuotesActivity();
                 tab1.setArguments(bundle);
                 return tab1;
             case 1:
@@ -52,7 +53,7 @@ public class TabPagerAdapter extends FragmentPagerAdapter {
                 bundle.putString("commodity",commodity);
                 bundle.putString("RID","RID1");
 
-                MyQuotesActivity tab2 = new MyQuotesActivity();
+                tab2 = new MyQuotesActivity();
                 tab2.setArguments(bundle);
                 return tab2;
             case 2:
@@ -61,7 +62,7 @@ public class TabPagerAdapter extends FragmentPagerAdapter {
                 bundle.putString("commodity",commodity);
                 bundle.putString("RID","RID1");
 
-                MyQuotesActivity tab3 = new MyQuotesActivity();
+                tab3 = new MyQuotesActivity();
                 tab3.setArguments(bundle);
                 return tab3;
             case 3:
@@ -70,7 +71,7 @@ public class TabPagerAdapter extends FragmentPagerAdapter {
                 bundle.putString("commodity",commodity);
                 bundle.putString("RID","RID1");
 
-                MyQuotesActivity tab4 = new MyQuotesActivity();
+                tab4 = new MyQuotesActivity();
                 tab4.setArguments(bundle);
                 return tab4;
             case 4:
@@ -79,12 +80,30 @@ public class TabPagerAdapter extends FragmentPagerAdapter {
                 bundle.putString("commodity",commodity);
                 bundle.putString("RID","RID1");
 
-                MyQuotesActivity tab5 = new MyQuotesActivity();
+                tab5 = new MyQuotesActivity();
                 tab5.setArguments(bundle);
                 return tab5;
             default:
                 return null;
         }
+    }
+    public void removeTabPage(int position) {
+
+            notifyDataSetChanged();
+            MyQuotesActivity item=null;
+            switch(position){
+                case 0: item=tab1;
+                break;
+                case 1:item=tab2;
+                break;
+                case 2:item=tab3;
+                break;
+                case 3:item=tab4;
+                break;
+                case 4:item=tab5;
+                break;
+            }
+            item.remove();
     }
 
     @Override

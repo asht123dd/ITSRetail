@@ -38,8 +38,8 @@ import java.util.Map;
 public class QuotesTabbed extends AppCompatActivity {
     TabLayout tabLayout;
     ViewPager viewPager;
-    PagerAdapter adapter;
-    int i=0, quoteCount;
+    TabPagerAdapter adapter;
+    int i=0, position;
     String RID;
     ArrayList<String> QID;
     DatabaseReference mRootRef = FirebaseDatabase.getInstance().getReference();
@@ -90,6 +90,7 @@ public class QuotesTabbed extends AppCompatActivity {
                                                        @Override
                                                        public void onTabSelected(TabLayout.Tab tab) {
                                                            viewPager.setCurrentItem(tab.getPosition());
+                                                           position=tab.getPosition();
                                                        }
 
                                                        @Override
@@ -183,5 +184,14 @@ public class QuotesTabbed extends AppCompatActivity {
         tab.select();
 
     }
-
+    protected void delete(View v)
+    {
+        removeTab(position);
+    }
+    public void removeTab(int position) {
+        if (tabLayout.getTabCount() >= 1 && position<tabLayout.getTabCount()) {
+            tabLayout.removeTabAt(position);
+            adapter.removeTabPage(position);
+        }
+    }
 }

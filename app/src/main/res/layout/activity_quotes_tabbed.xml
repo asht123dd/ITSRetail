@@ -35,7 +35,9 @@
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
         />
 
-    <include layout="@layout/content_quotes_tabbed" />
+    <include
+        android:id="@+id/include2"
+        layout="@layout/content_quotes_tabbed" />
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fab"
@@ -46,6 +48,15 @@
         android:onClick="fabulous"
         app:srcCompat="@android:drawable/ic_input_add" />
 
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/deleteButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        android:onClick="delete"
+        app:layout_anchor="@+id/include2"
+        app:layout_anchorGravity="right|center"
+        app:srcCompat="@android:drawable/ic_delete" />
 
 
 </android.support.design.widget.CoordinatorLayout>

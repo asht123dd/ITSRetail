@@ -28,6 +28,7 @@ public class MyQuotesActivity extends Fragment {
     DatabaseReference mRootRef = FirebaseDatabase.getInstance().getReference();
     DatabaseReference mQuotesRef=mRootRef.child("quotes");
     DatabaseReference mQIDRef;
+    String QIDString;
     DatabaseReference mPriceRef;
     DatabaseReference mQuantityRef;
     DatabaseReference mQuotesCount=mRootRef.child("quotesCount");
@@ -59,6 +60,10 @@ public class MyQuotesActivity extends Fragment {
             }
             if(!freshTab) {
                 mQIDRef = mQuotesRef.child(QID);
+                if(mQIDRef!=null)
+                {
+                    Log.d("xyzr22","QIDRef not null for QID = "+mQIDRef.getKey());
+                }
             }
         }
     }
@@ -245,13 +250,14 @@ public class MyQuotesActivity extends Fragment {
         mQuotesRef.child("QID" + (quoteCount + 1)).child("quality").setValue(quality);
         mQuotesRef.child("QID" + (quoteCount + 1)).child("commodity").setValue(commodity);
         mQuotesRef.child("QID" + (quoteCount + 1)).child("RID").setValue(RID);
+        mQIDRef=mQuotesRef.child("QID" + (quoteCount + 1));
         freshTab=false;
+
         mCommodityRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-              String QIDString=dataSnapshot.getValue(String.class);
-              QIDString+=",QID"+(quoteCount + 1);
-                mCommodityRef.setValue(QIDString);
+              QIDString=dataSnapshot.getValue(String.class);
+
             }
 
             @Override
@@ -259,6 +265,8 @@ public class MyQuotesActivity extends Fragment {
 
             }
         });
+        QIDString+=",QID"+(quoteCount + 1);
+        mCommodityRef.setValue(QIDString);
 
     }
 
@@ -288,7 +296,21 @@ public class MyQuotesActivity extends Fragment {
 
     }
 
+public void remove()
+{
+    if(mQIDRef==null)
+    {
+        Log.d("xyzr22","mQIDRef is null");
+    }
+    else
+        Log.d("xyzr22","mQIDRef is not null");
 
+    final String quoteID=mQIDRef.getKey();
+    mQIDRef.removeValue();
+
+    String newString=QIDString.replace(","+quoteID,"");
+    mCommodityRef.setValue(newString);
+}
 
 }
 
