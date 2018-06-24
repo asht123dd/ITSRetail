@@ -24,13 +24,16 @@
         </activity>
         <activity android:name=".WheatActivity" />
         <activity android:name=".PotatoActivity" />
-        <activity android:name=".MyQuotesActivity" />
-        <activity android:name=".AllQuotesActivity"
-            />
+
+        <activity android:name=".AllQuotesActivity" />
         <activity
             android:name=".SetQuotesActivity"
             android:label="@string/title_activity_set_quotes"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".QuotesTabbed"
+            android:label="@string/title_activity_quotes_tabbed"
+            android:theme="@style/NoActionBar"></activity>
     </application>
 
 </manifest>

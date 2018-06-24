@@ -13,4 +13,8 @@
     <string name="price">Price</string>
     <string name="my_quotes">my quotes</string>
     <string name="tons_on_offer">Tons on offer</string>
+    <string name="quality">Quality</string>
+    <string name="title_activity_quotes_tabbed">QuotesTabbed</string>
+    <string name="action_settings">Settings</string>
+    <string name="section_format">Hello World from section: %1$d</string>
 </resources>

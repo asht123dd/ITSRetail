@@ -1,9 +1,12 @@
 package com.sdl.dart.itsretail;
 
+import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.RatingBar;
 import android.widget.TextView;
@@ -14,7 +17,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-public class MyQuotesActivity extends AppCompatActivity {
+public class MyQuotesActivity extends Fragment {
     DatabaseReference mRootRef = FirebaseDatabase.getInstance().getReference();
     DatabaseReference mQuotesRef=mRootRef.child("quotes");
     DatabaseReference mQIDRef;
@@ -24,17 +27,35 @@ public class MyQuotesActivity extends AppCompatActivity {
     DatabaseReference mQualityRef;
 
     float price;
-    int quantity;
+    int quantity, quality;
+    boolean freshTab=false;
     String QID, RID;
     EditText priceView, quantityView;
     RatingBar mRatingBar ;
     TextView mRatingScale ;
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    String commodity;
 
-        Log.d("xyzr22","my quotes activity successful!!");
-        setContentView(R.layout.activity_my_quotes);
+
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        if (getArguments() != null) {
+            QID= getArguments().getString("QID");
+            if(QID.equals("new"))
+            {
+                freshTab=true;
+            }
+            if(!freshTab)
+            mQIDRef=mQuotesRef.child(QID);
+        }
+    }
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+
+        Log.d("xyzr22","my quotes fragment creation");
+        View view;
+        view=inflater.inflate(R.layout.activity_my_quotes, container, false);
+       // setContentView(R.layout.activity_my_quotes);
        /* Log.d("xyzr22","creation successfull, "+btnText);
         button=findViewById(R.id.button3);
         // db=new DatabaseManager();
@@ -45,16 +66,39 @@ public class MyQuotesActivity extends AppCompatActivity {
         }
         else
             button.setText("Update quote");*/
-        priceView=findViewById(R.id.actualPrice);
+        priceView=view.findViewById(R.id.actualPrice);
         priceView.setText("0.0");
-        quantityView=findViewById(R.id.actualQuantity);
+        quantityView=view.findViewById(R.id.actualQuantity);
         quantityView.setText("0");
-        mRatingBar= (RatingBar) findViewById(R.id.ratingBar);
-        mRatingScale= (TextView) findViewById(R.id.actualQuality);
+        mRatingBar= (RatingBar) view.findViewById(R.id.ratingBar);
+        mRatingScale= (TextView) view.findViewById(R.id.actualQuality);
         mRatingScale.setText("");
-        final String commodity=getIntent().getStringExtra("commodity");
+     //   final String commodity=getIntent().getStringExtra("commodity");
+if(!freshTab) {
+    mQIDRef.addListenerForSingleValueEvent(new ValueEventListener() {
+        @Override
+        public void onDataChange(DataSnapshot dataSnapshot) {
+            initialize();
+            price = dataSnapshot.child("price").getValue(Float.class);
+            priceView.setText(Float.toString(price));
+            quantity = dataSnapshot.child("quantity").getValue(Integer.class);
+            quantityView.setText(Integer.toString(quantity));
+            if (dataSnapshot.child("quality") == null) {
+                quality = 0;
+            } else {
+                Log.d("xyzr22", "dataSnapshot.child(\"quality\")!=null");
+                quality = dataSnapshot.child("quality").getValue(Integer.class);
+            }
+            mRatingBar.setRating(quality);
+        }
 
-        mQuotesRef.addListenerForSingleValueEvent(new ValueEventListener() {
+        @Override
+        public void onCancelled(DatabaseError databaseError) {
+
+        }
+    });
+}
+       /* mQuotesRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
@@ -86,7 +130,7 @@ public class MyQuotesActivity extends AppCompatActivity {
             @Override
             public void onCancelled(DatabaseError databaseError) {
             }
-        });
+        });*/
         mRatingBar.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
             @Override
             public void onRatingChanged(RatingBar ratingBar, float v, boolean b) {
@@ -114,7 +158,7 @@ public class MyQuotesActivity extends AppCompatActivity {
             }
         });
 
-
+        return view;
     }
     public void initialize()
     {

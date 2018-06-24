@@ -39,7 +39,7 @@ public class WheatActivity extends AppCompatActivity {
         else
             button.setText("Update quote");*/
     }
-    @Override
+   /* @Override
     protected void onStart(){
         super.onStart();
         mWheatRef.addValueEventListener(new ValueEventListener() {
@@ -53,7 +53,7 @@ public class WheatActivity extends AppCompatActivity {
 
             }
         });
-    }
+    }*/
     protected void getWheatQuotes(View v){
         Log.d("xyzr22","this is getWheatQuotes");
         Intent intent = new Intent(v.getContext(), AllQuotesActivity.class);
@@ -68,7 +68,7 @@ public class WheatActivity extends AppCompatActivity {
     }
     protected void getMyQuotes(View v){
         Log.d("xyzr22","this is getMyQuotes");
-        Intent intent = new Intent(v.getContext(), MyQuotesActivity.class);
+        Intent intent = new Intent(v.getContext(), QuotesTabbed.class);
         intent.putExtra("commodity","wheat");
         startActivity(intent);
     }
