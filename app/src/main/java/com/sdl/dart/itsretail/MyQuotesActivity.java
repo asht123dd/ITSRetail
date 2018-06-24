@@ -67,6 +67,7 @@ public class MyQuotesActivity extends Fragment {
         View view;
         view=inflater.inflate(R.layout.activity_my_quotes, container, false);
         save=view.findViewById(R.id.saveButton);
+
         save.setOnClickListener(new View.OnClickListener()
         {
             @Override
@@ -119,8 +120,8 @@ public class MyQuotesActivity extends Fragment {
         mRatingScale= (TextView) view.findViewById(R.id.actualQuality);
         mRatingScale.setText("");
      //   final String commodity=getIntent().getStringExtra("commodity");
-if(!freshTab) {
-    mQIDRef.addListenerForSingleValueEvent(new ValueEventListener() {
+    if(!freshTab) {
+        mQIDRef.addListenerForSingleValueEvent(new ValueEventListener() {
         @Override
         public void onDataChange(DataSnapshot dataSnapshot) {
            initialize();
@@ -140,9 +141,9 @@ if(!freshTab) {
         @Override
         public void onCancelled(DatabaseError databaseError) {
 
-        }
-    });
-}
+            }
+        });
+    }
        /* mQuotesRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -175,7 +176,24 @@ if(!freshTab) {
             @Override
             public void onCancelled(DatabaseError databaseError) {
             }
-        });*/
+        });*/else {
+        priceView.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View view, boolean focus) {
+                if (focus == false) {
+                    price = Double.parseDouble(priceView.getText().toString());
+                }
+            }
+        });
+        quantityView.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View view, boolean focus) {
+                if (focus == false) {
+                    quantity = Integer.parseInt(quantityView.getText().toString());
+                }
+            }
+        });
+    }
         mRatingBar.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
             @Override
             public void onRatingChanged(RatingBar ratingBar, float v, boolean b) {
@@ -210,6 +228,9 @@ if(!freshTab) {
     {
         mQuotesCount.setValue(quoteCount + 1);
        // newQuote.put("QID" + (quoteCount + 1), new Quote(price, quantity, quality, commodity));
+        price=Double.parseDouble(priceView.getText().toString());
+        quantity=Integer.parseInt(quantityView.getText().toString());
+
         mQuotesRef.child("QID" + (quoteCount + 1)).child("price").setValue(price);
         mQuotesRef.child("QID" + (quoteCount + 1)).child("quantity").setValue(quantity);
         mQuotesRef.child("QID" + (quoteCount + 1)).child("quality").setValue(quality);
@@ -224,11 +245,11 @@ if(!freshTab) {
             mQuantityRef = mQIDRef.child("quantity");
             mQualityRef = mQIDRef.child("quality");
 
-           /* priceView.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+           priceView.setOnFocusChangeListener(new View.OnFocusChangeListener() {
                 @Override
                 public void onFocusChange(View view, boolean focus) {
                     if (focus == false) {
-                        mPriceRef.setValue(Float.parseFloat(priceView.getText().toString()));
+                        price=Double.parseDouble(priceView.getText().toString());
                     }
                 }
             });
@@ -236,10 +257,10 @@ if(!freshTab) {
                 @Override
                 public void onFocusChange(View view, boolean focus) {
                     if (focus == false) {
-                        mQuantityRef.setValue(Float.parseFloat(quantityView.getText().toString()));
+                        quantity=Integer.parseInt(quantityView.getText().toString());
                     }
                 }
-            });*/
+            });
 
     }
 

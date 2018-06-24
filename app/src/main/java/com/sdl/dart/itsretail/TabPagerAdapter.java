@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
+import android.util.Log;
 
 import java.util.ArrayList;
 
@@ -28,10 +29,10 @@ public class TabPagerAdapter extends FragmentPagerAdapter {
 
         for(int i=0;i<5;i++)
         {
-            QID.add("new");
+            this.QID.add("new");
         }
 
-
+        Log.d("xyzr22","fresh tab added");
     }
     @Override
     public Fragment getItem(int position) {
