@@ -41,7 +41,9 @@ public class MyQuotesActivity extends Fragment {
     RatingBar mRatingBar ;
     TextView mRatingScale ;
     String commodity;
-
+    DatabaseReference mStatusRef=mRootRef.child("status");
+    DatabaseReference mRIDRef=mStatusRef.child("RID1");
+    DatabaseReference mCommodityRef;
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,6 +51,7 @@ public class MyQuotesActivity extends Fragment {
             QID= getArguments().getString("QID");
             RID=getArguments().getString("RID");
             commodity=getArguments().getString("commodity");
+            mCommodityRef=mRIDRef.child(commodity);
             if(QID.equals("new"))
             {
                 freshTab=true;
@@ -229,6 +232,7 @@ public class MyQuotesActivity extends Fragment {
     public void addQuote()
     {
         mQuotesCount.setValue(quoteCount + 1);
+
        // newQuote.put("QID" + (quoteCount + 1), new Quote(price, quantity, quality, commodity));
         price=Double.parseDouble(priceView.getText().toString());
         quantity=Integer.parseInt(quantityView.getText().toString());
@@ -239,6 +243,19 @@ public class MyQuotesActivity extends Fragment {
         mQuotesRef.child("QID" + (quoteCount + 1)).child("commodity").setValue(commodity);
         mQuotesRef.child("QID" + (quoteCount + 1)).child("RID").setValue(RID);
         freshTab=false;
+        mCommodityRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+              String QIDString=dataSnapshot.getValue(String.class);
+              QIDString+=",QID"+(quoteCount + 1);
+                mCommodityRef.setValue(QIDString);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
 
     }
 
