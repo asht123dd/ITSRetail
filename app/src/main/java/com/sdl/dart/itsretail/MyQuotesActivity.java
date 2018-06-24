@@ -33,7 +33,6 @@ public class MyQuotesActivity extends Fragment {
     int quoteCount;
     FloatingActionButton save;
     DatabaseReference mQualityRef;
-
     double price;
     int quantity, quality;
     boolean freshTab=false;
@@ -94,6 +93,9 @@ public class MyQuotesActivity extends Fragment {
                 }
                 else
                 {
+                    price=Double.parseDouble(priceView.getText().toString());
+                    Log.d("xyzr22","price after parsing = "+price);
+                    quantity=Integer.parseInt(quantityView.getText().toString());
                     mQIDRef.child("price").setValue(price);
                     mQIDRef.child("quantity").setValue(quantity);
                     mQIDRef.child("quality").setValue(quality);
@@ -236,6 +238,8 @@ public class MyQuotesActivity extends Fragment {
         mQuotesRef.child("QID" + (quoteCount + 1)).child("quality").setValue(quality);
         mQuotesRef.child("QID" + (quoteCount + 1)).child("commodity").setValue(commodity);
         mQuotesRef.child("QID" + (quoteCount + 1)).child("RID").setValue(RID);
+        freshTab=false;
+
     }
 
     public void initialize()
