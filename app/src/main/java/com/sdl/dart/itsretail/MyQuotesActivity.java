@@ -15,6 +15,7 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -265,6 +266,7 @@ public class MyQuotesActivity extends Fragment {
 
             }
         });
+
         QIDString+=",QID"+(quoteCount + 1);
         mCommodityRef.setValue(QIDString);
 
