@@ -32,7 +32,7 @@
         android:id="@+id/pager"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+
         />
 
     <include
@@ -56,7 +56,8 @@
         android:onClick="delete"
         app:layout_anchor="@+id/include2"
         app:layout_anchorGravity="right|center"
-        app:srcCompat="@android:drawable/ic_delete" />
+        app:srcCompat="@android:drawable/ic_delete"
+        android:focusable="true" />
 
 
 </android.support.design.widget.CoordinatorLayout>

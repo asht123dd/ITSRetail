@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FBD28B"
+    tools:context="ForgetActivity">
+
+    <Button
+        android:id="@+id/reset"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="157dp"
+        android:background="#FFCC80"
+        android:onClick="resetOnClick"
+        android:text="Reset Password" />
+
+    <EditText
+        android:id="@+id/emailForget"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/reset"
+        android:layout_marginStart="30dp"
+        android:layout_marginBottom="34dp"
+        android:layout_toEndOf="@+id/textView12"
+        android:background="@android:drawable/editbox_background_normal"
+        android:ems="10"
+        android:hint="Email"
+        android:inputType="textEmailAddress" />
+
+    <TextView
+        android:id="@+id/textView9"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/emailForget"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="29dp"
+        android:gravity="center"
+        android:textStyle="bold"
+        style="@style/Widget.AppCompat.TextView.SpinnerItem"
+        android:text="We just need your registered Email Id to sent you \npassword reset instructions."
+        />
+
+    <TextView
+        android:id="@+id/textView10"
+        style="@style/Widget.AppCompat.TextView.SpinnerItem"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/emailForget"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="66dp"
+        android:onClick="goToLogin"
+        android:text="Login >>"
+        android:textColor="@android:color/black" />
+
+    <TextView
+        android:id="@+id/textView11"
+        android:layout_width="600dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="0dp"
+        android:layout_marginTop="50dp"
+        android:gravity="center"
+        android:text="Forget Password ?"
+        android:textSize="25sp" />
+
+    <TextView
+        android:id="@+id/textView12"
+        style="@style/Widget.AppCompat.TextView.SpinnerItem"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/reset"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="7dp"
+        android:layout_marginBottom="40dp"
+        android:text="Email:"
+        android:textStyle="bold" />
+
+    <ProgressBar
+        android:id="@+id/progressBarF"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textView10"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="35dp" />
+
+</RelativeLayout>

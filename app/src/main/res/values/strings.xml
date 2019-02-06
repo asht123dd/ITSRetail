@@ -1,8 +1,9 @@
 <resources>
-    <string name="app_name">ITSRetail</string>
+    <string name="app_name">FoodRetail</string>
     <string name="textview">TextView</string>
     <string name="wheat">content_desc</string>
     <string name="potato">potato</string>
+    <string name="appbar_scrolling_view_behavior">AppBarLayout.ScrollingViewBehavior</string>
     <string name="get_current_quotes">Get Current Quotes</string>
     <string name="submit_a_quote">submit a quote</string>
     <string name="update_my_quote">update my quote</string>

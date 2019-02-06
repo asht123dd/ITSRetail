@@ -1,6 +1,7 @@
 package com.sdl.dart.itsretail;
 
 import android.content.Intent;
+import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
@@ -34,7 +35,7 @@ public class MyQuotesActivity extends Fragment {
     DatabaseReference mQuantityRef;
     DatabaseReference mQuotesCount=mRootRef.child("quotesCount");
     int quoteCount;
-    FloatingActionButton save;
+    Button save;
     DatabaseReference mQualityRef;
     double price;
     int quantity, quality;
@@ -58,6 +59,7 @@ public class MyQuotesActivity extends Fragment {
             if(QID.equals("new"))
             {
                 freshTab=true;
+                Log.d("xyzr22","QIDRef null");
             }
             if(!freshTab) {
                 mQIDRef = mQuotesRef.child(QID);
@@ -75,7 +77,7 @@ public class MyQuotesActivity extends Fragment {
         Log.d("xyzr22","my quotes fragment creation");
         View view;
         view=inflater.inflate(R.layout.activity_my_quotes, container, false);
-        save=view.findViewById(R.id.saveButton);
+        save=view.findViewById(R.id.button4);
 
         save.setOnClickListener(new View.OnClickListener()
         {
@@ -136,21 +138,68 @@ public class MyQuotesActivity extends Fragment {
      //   final String commodity=getIntent().getStringExtra("commodity");
     if(!freshTab) {
         mQIDRef.addListenerForSingleValueEvent(new ValueEventListener() {
+
         @Override
         public void onDataChange(DataSnapshot dataSnapshot) {
+            Log.d("xyzr22","QIDRef listener");
            initialize();
-            price = dataSnapshot.child("price").getValue(Double.class);
-            priceView.setText(Double.toString(price));
-            quantity = dataSnapshot.child("quantity").getValue(Integer.class);
-            quantityView.setText(Integer.toString(quantity));
-            if (dataSnapshot.child("quality").exists()) {
-                quality = dataSnapshot.child("quality").getValue(Integer.class);
-            } else {
-                Log.d("xyzr22", "dataSnapshot.child(\"quality\")!=null");
-                quality = 0;
-            }
-            mRatingBar.setRating(quality);
-        }
+                mPriceRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        Log.d("xyzr22","mPriceRef listener");
+                        price=dataSnapshot.getValue(Double.class);
+                        Log.d("xyzr22","price from firebase"+price);
+                        priceView.setText(Double.toString(price));
+
+                        //price=dataSnapshot.getValue(Double.class);
+
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                    }
+                });
+                mQuantityRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                        quantity = dataSnapshot.getValue(Integer.class);
+                        quantityView.setText(Integer.toString(quantity));
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                    }
+                });
+                if(mQualityRef!=null)
+                {
+                    mQualityRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                                quality=dataSnapshot.getValue(Integer.class);
+                            mRatingBar.setRating(quality);
+                            //quantityView.setText(Integer.toString(quantity));
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                        }
+                    });
+                }
+                else
+                {
+                    Log.d("xyzr22","mQualityref null");
+                    quality=0;
+                    mRatingBar.setRating(quality);
+                }
+
+
+           }
+
 
         @Override
         public void onCancelled(DatabaseError databaseError) {
