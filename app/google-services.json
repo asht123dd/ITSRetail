@@ -8,6 +8,37 @@
   "client": [
     {
       "client_info": {
+        "mobilesdk_app_id": "1:944389209352:android:c5a51a6099227783",
+        "android_client_info": {
+          "package_name": "com.foodkrane.driver"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "944389209352-804sk5am2c9eahskor2562ft2ftkf6mh.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDaK9Pd-B8BTZpkYji2dedjBqnajpE3t1Y"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    },
+    {
+      "client_info": {
         "mobilesdk_app_id": "1:944389209352:android:cf712bfa3b8ab536",
         "android_client_info": {
           "package_name": "com.sdl.dart.itsretail"

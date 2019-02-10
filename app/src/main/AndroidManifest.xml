@@ -24,7 +24,9 @@
         </activity>
         <activity android:name=".WheatActivity" />
         <activity android:name=".PotatoActivity" />
-
+        <activity android:name=".Login"/>
+        <activity android:name=".Registration"/>
+        <activity android:name=".ForgetActivity"/>
         <activity android:name=".AllQuotesActivity" />
         <activity
             android:name=".SetQuotesActivity"

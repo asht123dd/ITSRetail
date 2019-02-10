@@ -21,7 +21,7 @@
         android:layout_below="@+id/ima"
         android:layout_marginTop="1dp"
         android:gravity="center"
-        android:text="Foodkrane"
+        android:text="FoodKrane"
         android:textSize="30dp"
         android:textStyle="bold" />
 
