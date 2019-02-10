@@ -1,6 +1,7 @@
 package com.sdl.dart.itsretail;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.design.widget.TabLayout;
@@ -24,6 +25,8 @@ import android.widget.TabHost;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -45,20 +48,52 @@ public class QuotesTabbed extends AppCompatActivity {
     DatabaseReference mRootRef = FirebaseDatabase.getInstance().getReference();
     DatabaseReference mQuotesCount=mRootRef.child("quotesCount");
     DatabaseReference mStatusRef=mRootRef.child("status");
-    DatabaseReference mRIDRef=mStatusRef.child("RID1");
+    DatabaseReference mRIDRef;
     DatabaseReference mQuotesRef;
     DatabaseReference mNewQuoteRef;
-
+    int quoteCount;
+    boolean track;
     String newQuoteList,commodity;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_quotes_tabbed);
+        track=true;
+        mNewQuoteRef=mRootRef.child("quotes");
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         commodity=getIntent().getStringExtra("commodity");
-        mQuotesRef=mRIDRef.child(commodity);
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        if (user != null) {
+            // Name, email address, and profile photo Url
+            String name = user.getDisplayName();
+            String email = user.getEmail();
+            Uri photoUrl = user.getPhotoUrl();
 
+            // Check if user's email is verified
+            boolean emailVerified = user.isEmailVerified();
+
+            // The user's ID, unique to the Firebase project. Do NOT use this value to
+            // authenticate with your backend server, if you have one. Use
+            // FirebaseUser.getIdToken() instead.
+            String uid = user.getUid();
+            mRIDRef=mStatusRef.child(uid);
+        }
+        if(mRIDRef!=null)
+        mQuotesRef=mRIDRef.child(commodity);
+        mQuotesCount.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                quoteCount = dataSnapshot.getValue(Integer.class);
+
+                Log.d("xyzr22", "quoteCount = " + quoteCount);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
 
         tabLayout =
                 (TabLayout) findViewById(R.id.tab_layout);
@@ -78,8 +113,26 @@ public class QuotesTabbed extends AppCompatActivity {
         mRIDRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                QID= new ArrayList<>(Arrays.asList(dataSnapshot.child(commodity).getValue().toString().split(",")));
-                populate();
+                if(dataSnapshot.child(commodity).getValue()==null)
+                {
+                    track=false;
+                    firstPop();
+                }
+                while(!track);
+                if(dataSnapshot.child(commodity).getValue()!=null) {
+                    String[] preArr = dataSnapshot.child(commodity).getValue().toString().split(",");
+                    StringBuilder postArr = new StringBuilder();
+                    ArrayList<String> post = new ArrayList();
+                    for (String a : preArr) {
+                        if (!a.equals("null")&&!a.isEmpty()) {
+                            post.add(a);
+                            postArr.append("," + a);
+                        }
+                    }
+                    mQuotesRef.setValue(postArr.toString());
+                    QID = post;
+                    populate();
+                }
             }
             @Override
             public void onCancelled(DatabaseError databaseError) {
@@ -104,6 +157,23 @@ public class QuotesTabbed extends AppCompatActivity {
                                                        }
 
                                                    });
+    }
+    public void firstPop()
+    {
+
+            mQuotesCount.setValue(quoteCount + 1);
+
+            // newQuote.put("QID" + (quoteCount + 1), new Quote(price, quantity, quality, commodity));
+
+            mQuotesRef.setValue("QID"+(quoteCount+1));
+            mNewQuoteRef.child("QID" + (quoteCount + 1)).child("price").setValue(0.00);
+            mNewQuoteRef.child("QID" + (quoteCount + 1)).child("quantity").setValue(0);
+            mNewQuoteRef.child("QID" + (quoteCount + 1)).child("quality").setValue(0);
+            mNewQuoteRef.child("QID" + (quoteCount + 1)).child("commodity").setValue(commodity);
+            mNewQuoteRef.child("QID" + (quoteCount + 1)).child("RID").setValue(RID);
+
+            track=true;
+
     }
 
     /*@Override
