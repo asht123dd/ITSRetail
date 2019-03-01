@@ -25,13 +25,26 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 public class AllQuotesActivity extends AppCompatActivity {
-    TextView qty;
+/*                                              root(mRootRef)
+                                                /
+                                               /
+                                            quotes(mQuotesRef)
+                                         /   /   |
+                                        /   /    |
+                                       /   /     |
+                                     QID1 QID2 QID3
+                              /       /\      |     \
+                             /       /  \     |      \
+                            /       /    \    |       \
+                     commodity     RID  price quality quantity
+
+ */
     ArrayList<Float> price;
     float f;
     ArrayAdapter<String> adapter;
     int i, j, globalOrder=0;
     ArrayList<String> currencyPrice=new ArrayList<String>();
-   // ArrayList<Integer> price;
+
     ListView list;
     Button priceButton;
     DatabaseReference mRootRef = FirebaseDatabase.getInstance().getReference();
@@ -40,29 +53,26 @@ public class AllQuotesActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_all_quotes);
-      /*  Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);*/
+
         i=0;
         j=0;
+        //store commodity name in commodity
         final String commodity=getIntent().getStringExtra("commodity");
-        //Log.v("xyzr22",commodity);
-        //pr=new ArrayList<Float>();
-//getSupportActionBar().
 
-       // quantity=new ArrayList<>();
-     priceButton=findViewById(R.id.priceButton);
+        priceButton=findViewById(R.id.priceButton);
+        //price stores a list of prices
         price = new ArrayList<>();
         list=findViewById(R.id.dynamicPrices);
         mQuotesRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                  //  Log.d("xyzr22",commodity);
-                    if(snapshot.child("commodity").getValue(String.class).equalsIgnoreCase(commodity))
+
+                    if(snapshot.child("commodity").getValue(String.class).equalsIgnoreCase(commodity))//quotes with commodity=commodity
                     {
                         f = snapshot.child("price").getValue(Float.class);
-                        prAdd(f);
-                        Log.d("xyzr22", String.valueOf(price.get(0)));
+                        prAdd(f);//add price to list
+                       // Log.d("xyzr22", String.valueOf(price.get(0)));
                         // i++;
                      //   quantity.add(snapshot.child("quantity").getValue(Integer.class));
                         j++;
@@ -102,8 +112,10 @@ public class AllQuotesActivity extends AppCompatActivity {
         Log.d("xyzr22","Value before init");
         init();*/
     }
+    //add prices from quotes with passed commodity to price list
     public void prAdd(float f)
     {
+        if(f>0.0)
         price.add(f);
     }
 
@@ -139,13 +151,14 @@ public class AllQuotesActivity extends AppCompatActivity {
         priceButton.setText("Price ▲");
         Collections.sort(price);
         for (int i = 0; i < price.size(); i++) {
+
             currencyPrice.add("₹" + Float.toString(price.get(i)));
         }
         adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, currencyPrice);
         list.setAdapter(adapter);
 
     }
-    protected void change(View v){
+    public void change(View v){
         if(globalOrder==0) {
             globalOrder = 1;
             priceButton.setText("Price ▼");

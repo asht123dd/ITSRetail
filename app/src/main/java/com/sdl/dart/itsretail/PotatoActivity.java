@@ -53,7 +53,7 @@ public class PotatoActivity extends AppCompatActivity {
             }
         });
     }
-    protected void getPotatoQuotes(View v){
+    public void getPotatoQuotes(View v){
         Log.d("xyzr22","this is getPotatoQuotes");
         Intent intent = new Intent(v.getContext(), AllQuotesActivity.class);
         intent.putExtra("commodity","potato");
@@ -65,7 +65,7 @@ public class PotatoActivity extends AppCompatActivity {
         intent.putExtra("commodity","potato");
         startActivity(intent);
     }
-    protected void getMyQuotes(View v){
+    public void getMyQuotes(View v){
         Log.d("xyzr22","this is getMyQuotes");
         Intent intent = new Intent(v.getContext(), QuotesTabbed.class);
         intent.putExtra("commodity","potato");

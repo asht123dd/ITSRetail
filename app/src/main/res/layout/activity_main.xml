@@ -7,7 +7,7 @@
 
     tools:context="com.sdl.dart.itsretail.MainActivity">
 
-    <ImageButton
+    <android.support.v7.widget.AppCompatImageButton
         android:id="@+id/imageButton"
         android:layout_width="219dp"
         android:layout_height="209dp"
@@ -20,7 +20,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/wheat" />
 
-    <ImageButton
+    <android.support.v7.widget.AppCompatImageButton
         android:id="@+id/imageButton2"
         android:layout_width="223dp"
         android:layout_height="240dp"

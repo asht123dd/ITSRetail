@@ -54,7 +54,7 @@ public class WheatActivity extends AppCompatActivity {
             }
         });
     }*/
-    protected void getWheatQuotes(View v){
+    public void getWheatQuotes(View v){
         Log.d("xyzr22","this is getWheatQuotes");
         Intent intent = new Intent(v.getContext(), AllQuotesActivity.class);
         intent.putExtra("commodity","wheat");
@@ -66,7 +66,7 @@ public class WheatActivity extends AppCompatActivity {
         intent.putExtra("commodity","wheat");
         startActivity(intent);
     }
-    protected void getMyQuotes(View v){
+    public void getMyQuotes(View v){
         Log.d("xyzr22","this is getMyQuotes");
         Intent intent = new Intent(v.getContext(), QuotesTabbed.class);
         intent.putExtra("commodity","wheat");

@@ -212,7 +212,7 @@ public class QuotesTabbed extends AppCompatActivity {
                 TabLayout.TabLayoutOnPageChangeListener(tabLayout));
     }
 
-    protected void fabulous(View v){
+    public void fabulous(View v){
         Log.d("xyzr22","this is fabulous");
         if(i==5)
         {
@@ -254,7 +254,7 @@ public class QuotesTabbed extends AppCompatActivity {
         tab.select();
 
     }
-    protected void delete(View v)
+    public void delete(View v)
     {
         removeTab(position);
     }

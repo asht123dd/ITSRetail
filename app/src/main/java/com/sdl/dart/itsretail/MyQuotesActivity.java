@@ -166,7 +166,12 @@ public class MyQuotesActivity extends Fragment {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                         Log.d("xyzr22","mPriceRef listener");
-                        price=dataSnapshot.getValue(Double.class);
+                        try {
+                            price = dataSnapshot.getValue(Double.class);
+                        }catch(NullPointerException n)
+                        {
+                            price=0;
+                        }
                         Log.d("xyzr22","price from firebase"+price);
                         priceView.setText(Double.toString(price));
 

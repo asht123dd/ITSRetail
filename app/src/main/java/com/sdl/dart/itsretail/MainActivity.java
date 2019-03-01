@@ -107,14 +107,14 @@ public class MainActivity extends AppCompatActivity {
         });
     }*/
 
-    protected void wheatCall(View view)
+    public void wheatCall(View view)
     {
         Log.d("xyzr22","this is wheatCall");
         Intent intent = new Intent(view.getContext(), WheatActivity.class);
         startActivity(intent);
 
     }
-    protected void potatoCall(View view)
+    public void potatoCall(View view)
     {
         Log.d("xyzr22","this is potatoCall");
         Intent intent = new Intent(view.getContext(), PotatoActivity.class);
