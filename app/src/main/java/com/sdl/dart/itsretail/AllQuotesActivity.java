@@ -148,7 +148,7 @@ public class AllQuotesActivity extends AppCompatActivity {
             row.addView(qty);
             ll.addView(row,i);
         }*/
-        priceButton.setText("Price ▲");
+        priceButton.setText("Price ▼");
         Collections.sort(price);
         for (int i = 0; i < price.size(); i++) {
 
@@ -161,13 +161,13 @@ public class AllQuotesActivity extends AppCompatActivity {
     public void change(View v){
         if(globalOrder==0) {
             globalOrder = 1;
-            priceButton.setText("Price ▼");
+            priceButton.setText("Price ▲");
 
             sort(globalOrder);
         }
         else{
             globalOrder=0;
-            priceButton.setText("Price ▲");
+            priceButton.setText("Price ▼");
 
             sort(globalOrder);
         }
