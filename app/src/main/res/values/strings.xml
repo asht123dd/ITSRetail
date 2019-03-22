@@ -20,4 +20,6 @@
     <string name="section_format">Hello World from section: %1$d</string>
     <string name="profile_string">Profile</string>
     <string name="logout_string">Logout</string>
+    <string name="title_activity_rice">RiceActivity</string>
+    <string name="title_activity_onion">OnionActivity</string>
 </resources>
