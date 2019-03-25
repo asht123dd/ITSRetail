@@ -1,5 +1,6 @@
 package com.sdl.dart.itsretail;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -47,11 +48,14 @@ public class AllQuotesActivityRice extends AppCompatActivity {
     DatabaseReference mQuotesRef=mRootRef.child("quotes");
     TextView riceType;
     String type;
+    private ProgressDialog Dialog;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_all_quotes_rice);
-
+        Dialog = new ProgressDialog(this);
+        Dialog.setMessage("Loading...");
+        Dialog.show();
         i=0;
         j=0;
         //store commodity name in commodity
@@ -81,6 +85,7 @@ public class AllQuotesActivityRice extends AppCompatActivity {
                     // TableRow row=new TableRow(this);
                 }
                 init();
+                Dialog.hide();
             }
             @Override
             public void onCancelled(DatabaseError databaseError) {

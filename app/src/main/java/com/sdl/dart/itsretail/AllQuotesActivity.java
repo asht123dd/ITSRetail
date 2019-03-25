@@ -1,5 +1,6 @@
 package com.sdl.dart.itsretail;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -49,11 +50,14 @@ public class AllQuotesActivity extends AppCompatActivity {
     Button priceButton;
     DatabaseReference mRootRef = FirebaseDatabase.getInstance().getReference();
     DatabaseReference mQuotesRef=mRootRef.child("quotes");
+    private ProgressDialog Dialog;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_all_quotes);
-
+        Dialog = new ProgressDialog(this);
+        Dialog.setMessage("Loading...");
+        Dialog.show();
         i=0;
         j=0;
         //store commodity name in commodity
@@ -80,6 +84,7 @@ public class AllQuotesActivity extends AppCompatActivity {
                    // TableRow row=new TableRow(this);
                 }
                 init();
+                Dialog.hide();
             }
             @Override
             public void onCancelled(DatabaseError databaseError) {
