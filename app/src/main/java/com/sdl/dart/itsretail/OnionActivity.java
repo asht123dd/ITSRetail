@@ -20,13 +20,13 @@ public class OnionActivity extends AppCompatActivity {
     public void getOnionQuotes(View v){
         Log.d("xyzr22","this is getRiceQuotes");
         Intent intent = new Intent(v.getContext(), AllQuotesActivity.class);
-        intent.putExtra("commodity","wheat");
+        intent.putExtra("commodity","onion");
         startActivity(intent);
     }
     public void getMyQuotes(View v){
         Log.d("xyzr22","this is getMyQuotes");
         Intent intent = new Intent(v.getContext(), QuotesTabbed.class);
-        intent.putExtra("commodity","wheat");
+        intent.putExtra("commodity","onion");
         startActivity(intent);
     }
 }

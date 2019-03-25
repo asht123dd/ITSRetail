@@ -22,4 +22,13 @@
     <string name="logout_string">Logout</string>
     <string name="title_activity_rice">RiceActivity</string>
     <string name="title_activity_onion">OnionActivity</string>
+    <string name="new_quote_line">Touch + to add a new quote</string>
+    <string-array name="rice_array">
+        <item>Indrayaaini</item>
+        <item>Rajmandir</item>
+        <item>CookStar</item>
+        <item>Kolam</item>
+        <item>GoldMandir</item>
+    </string-array>
+
 </resources>

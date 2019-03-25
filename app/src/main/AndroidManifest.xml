@@ -12,10 +12,12 @@
         android:roundIcon="@drawable/foodlogo"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.DarkActionBar">
+        <activity android:name=".QuotesTabbedRice"></activity>
+        <activity android:name=".AllQuotesActivityRice" />
         <activity
             android:name=".OnionActivity"
             android:label="@string/title_activity_onion"
-            android:theme="@style/NoActionBar"></activity>
+            android:theme="@style/NoActionBar" />
         <activity
             android:name=".RiceActivity"
             android:label="@string/title_activity_rice"
