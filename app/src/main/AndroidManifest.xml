@@ -12,6 +12,18 @@
         android:roundIcon="@drawable/foodlogo"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.DarkActionBar">
+        <activity android:name=".MyQuotesActivity2"></activity>
+        <activity android:name=".Main2Activity" />
+        <activity android:name=".QuotesTabbedRice" />
+        <activity android:name=".AllQuotesActivityRice" />
+        <activity
+            android:name=".OnionActivity"
+            android:label="@string/title_activity_onion"
+            android:theme="@style/NoActionBar" />
+        <activity
+            android:name=".RiceActivity"
+            android:label="@string/title_activity_rice"
+            android:theme="@style/NoActionBar" />
         <activity android:name=".MainActivity" />
         <activity
             android:name=".SplashActivity"
@@ -24,9 +36,9 @@
         </activity>
         <activity android:name=".WheatActivity" />
         <activity android:name=".PotatoActivity" />
-        <activity android:name=".Login"/>
-        <activity android:name=".Registration"/>
-        <activity android:name=".ForgetActivity"/>
+        <activity android:name=".Login" />
+        <activity android:name=".Registration" />
+        <activity android:name=".ForgetActivity" />
         <activity android:name=".AllQuotesActivity" />
         <activity
             android:name=".SetQuotesActivity"
@@ -35,7 +47,7 @@
         <activity
             android:name=".QuotesTabbed"
             android:label="@string/title_activity_quotes_tabbed"
-            android:theme="@style/NoActionBar"></activity>
+            android:theme="@style/NoActionBar" />
     </application>
 
 </manifest>

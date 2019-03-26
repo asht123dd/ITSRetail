@@ -20,4 +20,18 @@
     <string name="section_format">Hello World from section: %1$d</string>
     <string name="profile_string">Profile</string>
     <string name="logout_string">Logout</string>
+    <string name="title_activity_rice">RiceActivity</string>
+    <string name="title_activity_onion">OnionActivity</string>
+    <string name="new_quote_line">Touch + to add a new quote</string>
+    <string name="sign_in_cancelled">Sign In Cancelled</string>
+    <string name="no_internet_connection">No Internet Connection</string>
+    <string name="unknown_error">Unknown Error</string>
+    <string-array name="rice_array">
+        <item>Indrayaaini</item>
+        <item>Rajmandir</item>
+        <item>CookStar</item>
+        <item>Kolam</item>
+        <item>GoldMandir</item>
+    </string-array>
+
 </resources>

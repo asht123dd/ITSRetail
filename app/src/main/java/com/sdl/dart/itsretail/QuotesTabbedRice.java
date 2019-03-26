@@ -1,28 +1,14 @@
 package com.sdl.dart.itsretail;
 
-import android.content.Intent;
 import android.net.Uri;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.design.widget.TabLayout;
-import android.support.v4.view.PagerAdapter;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
-
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
-
-import android.widget.TabHost;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -34,11 +20,9 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Map;
 
-public class QuotesTabbed extends AppCompatActivity {
+public class QuotesTabbedRice extends AppCompatActivity {
+
     TabLayout tabLayout;
     ViewPager viewPager;
     TabPagerAdapter adapter;
@@ -57,7 +41,7 @@ public class QuotesTabbed extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_quotes_tabbed);
+        setContentView(R.layout.activity_quotes_tabbed_rice);
         track=true;
         mNewQuoteRef=mRootRef.child("quotes");
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -80,7 +64,7 @@ public class QuotesTabbed extends AppCompatActivity {
             mRIDRef=mStatusRef.child(uid);
         }
         if(mRIDRef!=null)
-        mQuotesRef=mRIDRef.child(commodity);
+            mQuotesRef=mRIDRef.child(commodity);
         mQuotesCount.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -108,7 +92,7 @@ public class QuotesTabbed extends AppCompatActivity {
                 android.R.drawable.ic_dialog_info));
 */
 
-       viewPager =
+        viewPager =
                 (ViewPager) findViewById(R.id.pager);
         mRIDRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -160,35 +144,19 @@ public class QuotesTabbed extends AppCompatActivity {
     }
     public void firstPop()
     {
-            if(commodity.substring(0,4).equals("rice")) {
-                mQuotesCount.setValue(quoteCount + 1);
 
-                // newQuote.put("QID" + (quoteCount + 1), new Quote(price, quantity, quality, commodity));
+        mQuotesCount.setValue(quoteCount + 1);
 
-                mQuotesRef.setValue("QID" + (quoteCount + 1));
-                mNewQuoteRef.child("QID" + (quoteCount + 1)).child("price").setValue(0.00);
-                mNewQuoteRef.child("QID" + (quoteCount + 1)).child("quantity").setValue(0);
-                //mNewQuoteRef.child("QID" + (quoteCount + 1)).child("quality").setValue(0);
-                mNewQuoteRef.child("QID" + (quoteCount + 1)).child("commodity").setValue(commodity);
-                mNewQuoteRef.child("QID" + (quoteCount + 1)).child("RID").setValue(RID);
+        // newQuote.put("QID" + (quoteCount + 1), new Quote(price, quantity, quality, commodity));
 
-                track = true;
-            }
-            else
-            {
-                mQuotesCount.setValue(quoteCount + 1);
+        mQuotesRef.setValue("QID"+(quoteCount+1));
+        mNewQuoteRef.child("QID" + (quoteCount + 1)).child("price").setValue(0.00);
+        mNewQuoteRef.child("QID" + (quoteCount + 1)).child("quantity").setValue(0);
+        mNewQuoteRef.child("QID" + (quoteCount + 1)).child("quality").setValue(0);
+        mNewQuoteRef.child("QID" + (quoteCount + 1)).child("commodity").setValue(commodity);
+        mNewQuoteRef.child("QID" + (quoteCount + 1)).child("RID").setValue(RID);
 
-                // newQuote.put("QID" + (quoteCount + 1), new Quote(price, quantity, quality, commodity));
-
-                mQuotesRef.setValue("QID" + (quoteCount + 1));
-                mNewQuoteRef.child("QID" + (quoteCount + 1)).child("price").setValue(0.00);
-                mNewQuoteRef.child("QID" + (quoteCount + 1)).child("quantity").setValue(0);
-                mNewQuoteRef.child("QID" + (quoteCount + 1)).child("quality").setValue(0);
-                mNewQuoteRef.child("QID" + (quoteCount + 1)).child("commodity").setValue(commodity);
-                mNewQuoteRef.child("QID" + (quoteCount + 1)).child("RID").setValue(RID);
-
-                track = true;
-            }
+        track=true;
 
     }
 
@@ -244,7 +212,21 @@ public class QuotesTabbed extends AppCompatActivity {
     }
     public void createTab()
     {
+        /*QID.add("QID"+(quoteCount+1));
+        Map<String,Float> newQuote=new HashMap<>();
 
+
+        Quote quote=new Quote(0.0,0,0);
+
+        mNewQuoteRef=mQuotesRef.child("QID"+(quoteCount+1));
+        mNewQuoteRef.child("price").setValue(0.0);
+        mNewQuoteRef.child("quantity").setValue(0);
+        mNewQuoteRef.child("quality").setValue(0);
+
+        mQuotesCount.setValue(new Integer(quoteCount+1));
+        Log.d("xyzr22","Updated quoteCount = "+(quoteCount+1));
+        newQuoteList=android.text.TextUtils.join(",", QID);
+        mQuotesRef.setValue(newQuoteList);*/
 
         adapter = new TabPagerAdapter
                 (getSupportFragmentManager(),
@@ -259,7 +241,6 @@ public class QuotesTabbed extends AppCompatActivity {
     public void delete(View v)
     {
         i--;
-        Log.d("xyzr22","i="+i+"position="+position);
         removeTab(position);
     }
     public void removeTab(int position) {
@@ -268,4 +249,5 @@ public class QuotesTabbed extends AppCompatActivity {
             adapter.removeTabPage(position);
         }
     }
+
 }

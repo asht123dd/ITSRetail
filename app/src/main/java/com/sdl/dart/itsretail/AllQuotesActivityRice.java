@@ -4,16 +4,11 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.view.Gravity;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.LinearLayout;
 import android.widget.ListView;
-import android.widget.TableLayout;
-import android.widget.TableRow;
 import android.widget.TextView;
 
 import com.google.firebase.database.DataSnapshot;
@@ -25,8 +20,9 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.Collections;
 
-public class AllQuotesActivity extends AppCompatActivity {
-/*                                              root(mRootRef)
+public class AllQuotesActivityRice extends AppCompatActivity {
+
+    /*                                              root(mRootRef)
                                                 /
                                                /
                                             quotes(mQuotesRef)
@@ -50,11 +46,13 @@ public class AllQuotesActivity extends AppCompatActivity {
     Button priceButton;
     DatabaseReference mRootRef = FirebaseDatabase.getInstance().getReference();
     DatabaseReference mQuotesRef=mRootRef.child("quotes");
+    TextView riceType;
+    String type;
     private ProgressDialog Dialog;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_all_quotes);
+        setContentView(R.layout.activity_all_quotes_rice);
         Dialog = new ProgressDialog(this);
         Dialog.setMessage("Loading...");
         Dialog.show();
@@ -62,8 +60,11 @@ public class AllQuotesActivity extends AppCompatActivity {
         j=0;
         //store commodity name in commodity
         final String commodity=getIntent().getStringExtra("commodity");
-
+         type=commodity.substring(4);
         priceButton=findViewById(R.id.priceButton);
+        riceType=findViewById(R.id.riceTypeView);
+        Log.d("xyzr22",type);
+        riceType.setText(type);
         //price stores a list of prices
         price = new ArrayList<>();
         list=findViewById(R.id.dynamicPrices);
@@ -76,12 +77,12 @@ public class AllQuotesActivity extends AppCompatActivity {
                     {
                         f = snapshot.child("price").getValue(Float.class);
                         prAdd(f);//add price to list
-                       // Log.d("xyzr22", String.valueOf(price.get(0)));
+                        // Log.d("xyzr22", String.valueOf(price.get(0)));
                         // i++;
-                     //   quantity.add(snapshot.child("quantity").getValue(Integer.class));
+                        //   quantity.add(snapshot.child("quantity").getValue(Integer.class));
                         j++;
                     }
-                   // TableRow row=new TableRow(this);
+                    // TableRow row=new TableRow(this);
                 }
                 init();
                 Dialog.hide();
@@ -90,7 +91,7 @@ public class AllQuotesActivity extends AppCompatActivity {
             public void onCancelled(DatabaseError databaseError) {
             }
         });
-       Log.d("xyzr22","Value before init");
+        Log.d("xyzr22","Value before init");
         //init();
 
     }
@@ -121,7 +122,7 @@ public class AllQuotesActivity extends AppCompatActivity {
     public void prAdd(float f)
     {
         if(f>0.0)
-        price.add(f);
+            price.add(f);
     }
 
     public void init(){
@@ -205,5 +206,4 @@ public class AllQuotesActivity extends AppCompatActivity {
             adapter.notifyDataSetChanged();
         }
     }
-
 }

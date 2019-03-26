@@ -1,12 +1,9 @@
 package com.sdl.dart.itsretail;
 
-import android.content.Intent;
 import android.net.Uri;
-import android.support.annotation.NonNull;
-import android.support.design.widget.FloatingActionButton;
-import android.support.v4.app.Fragment;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
+import android.support.annotation.NonNull;
+import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,7 +14,6 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -29,7 +25,7 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.HashMap;
 import java.util.Map;
 
-public class MyQuotesActivity extends Fragment {
+public class MyRiceQuotesActivity extends Fragment {
     DatabaseReference mRootRef = FirebaseDatabase.getInstance().getReference();
     DatabaseReference mQuotesRef=mRootRef.child("quotes");
     DatabaseReference mQIDRef;
@@ -51,13 +47,15 @@ public class MyQuotesActivity extends Fragment {
     DatabaseReference mStatusRef=mRootRef.child("status");
     DatabaseReference mRIDRef;
     DatabaseReference mCommodityRef;
-
+    String type;
+    TextView riceType;
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
             QID= getArguments().getString("QID");
             RID=getArguments().getString("RID");
             commodity=getArguments().getString("commodity");
+
             FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
             if (user != null) {
                 // Name, email address, and profile photo Url
@@ -95,7 +93,7 @@ public class MyQuotesActivity extends Fragment {
 
         Log.d("xyzr22","my quotes fragment creation");
         View view;
-        view=inflater.inflate(R.layout.activity_my_quotes, container, false);
+        view=inflater.inflate(R.layout.activity_my_rice_quotes, container, false);
         save=view.findViewById(R.id.button4);
 
         save.setOnClickListener(new View.OnClickListener()
@@ -136,7 +134,7 @@ public class MyQuotesActivity extends Fragment {
             }
 
         });
-       // setContentView(R.layout.activity_my_quotes);
+        // setContentView(R.layout.activity_my_quotes);
        /* Log.d("xyzr22","creation successfull, "+btnText);
         button=findViewById(R.id.button3);
         // db=new DatabaseManager();
@@ -147,65 +145,38 @@ public class MyQuotesActivity extends Fragment {
         }
         else
             button.setText("Update quote");*/
+        type=commodity.substring(4);
+        riceType=view.findViewById(R.id.riceType);
+        Log.d("xyzr22",type);
+        riceType.setText(type);
         priceView=view.findViewById(R.id.actualPrice);
         priceView.setText("0.0");
         quantityView=view.findViewById(R.id.actualQuantity);
         quantityView.setText("0");
-        mRatingBar= (RatingBar) view.findViewById(R.id.ratingBar);
-        mRatingScale= (TextView) view.findViewById(R.id.actualQuality);
-        mRatingScale.setText("");
-     //   final String commodity=getIntent().getStringExtra("commodity");
-    if(!freshTab) {
-        mQIDRef.addListenerForSingleValueEvent(new ValueEventListener() {
 
-        @Override
-        public void onDataChange(DataSnapshot dataSnapshot) {
-            Log.d("xyzr22","QIDRef listener");
-           initialize();
-                mPriceRef.addListenerForSingleValueEvent(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                        Log.d("xyzr22","mPriceRef listener");
-                        try {
-                            price = dataSnapshot.getValue(Double.class);
-                        }catch(NullPointerException n)
-                        {
-                            price=0;
-                        }
-                        Log.d("xyzr22","price from firebase"+price);
-                        priceView.setText(Double.toString(price));
+        //   final String commodity=getIntent().getStringExtra("commodity");
+        if(!freshTab) {
+            mQIDRef.addListenerForSingleValueEvent(new ValueEventListener() {
 
-                        //price=dataSnapshot.getValue(Double.class);
-
-                    }
-
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError databaseError) {
-
-                    }
-                });
-                mQuantityRef.addListenerForSingleValueEvent(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-
-                        quantity = dataSnapshot.getValue(Integer.class);
-                        quantityView.setText(Integer.toString(quantity));
-                    }
-
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError databaseError) {
-
-                    }
-                });
-                if(mQualityRef!=null)
-                {
-                    mQualityRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    Log.d("xyzr22","QIDRef listener");
+                    initialize();
+                    mPriceRef.addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                            Log.d("xyzr22","mPriceRef listener");
+                            try {
+                                price = dataSnapshot.getValue(Double.class);
+                            }catch(NullPointerException n)
+                            {
+                                price=0;
+                            }
+                            Log.d("xyzr22","price from firebase"+price);
+                            priceView.setText(Double.toString(price));
 
-                                quality=dataSnapshot.getValue(Integer.class);
-                            mRatingBar.setRating(quality);
-                            //quantityView.setText(Integer.toString(quantity));
+                            //price=dataSnapshot.getValue(Double.class);
+
                         }
 
                         @Override
@@ -213,24 +184,53 @@ public class MyQuotesActivity extends Fragment {
 
                         }
                     });
+                    mQuantityRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                            quantity = dataSnapshot.getValue(Integer.class);
+                            quantityView.setText(Integer.toString(quantity));
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                        }
+                    });
+                    if(mQualityRef!=null)
+                    {
+                        mQualityRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                                quality=dataSnapshot.getValue(Integer.class);
+                            //    mRatingBar.setRating(quality);
+                                //quantityView.setText(Integer.toString(quantity));
+                            }
+
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                            }
+                        });
+                    }
+                    else
+                    {
+                        Log.d("xyzr22","mQualityref null");
+                        quality=0;
+                      //  mRatingBar.setRating(quality);
+                    }
+
+
                 }
-                else
-                {
-                    Log.d("xyzr22","mQualityref null");
-                    quality=0;
-                    mRatingBar.setRating(quality);
+
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+
                 }
-
-
-           }
-
-
-        @Override
-        public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
-    }
+            });
+        }
        /* mQuotesRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -264,24 +264,24 @@ public class MyQuotesActivity extends Fragment {
             public void onCancelled(DatabaseError databaseError) {
             }
         });*/else {
-        priceView.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View view, boolean focus) {
-                if (focus == false) {
-                    price = Double.parseDouble(priceView.getText().toString());
+            priceView.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+                @Override
+                public void onFocusChange(View view, boolean focus) {
+                    if (focus == false) {
+                        price = Double.parseDouble(priceView.getText().toString());
+                    }
                 }
-            }
-        });
-        quantityView.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View view, boolean focus) {
-                if (focus == false && !quantityView.getText().toString().isEmpty()) {
-                    quantity = Integer.parseInt(quantityView.getText().toString());
+            });
+            quantityView.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+                @Override
+                public void onFocusChange(View view, boolean focus) {
+                    if (focus == false) {
+                        quantity = Integer.parseInt(quantityView.getText().toString());
+                    }
                 }
-            }
-        });
-    }
-        mRatingBar.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
+            });
+        }
+        /*mRatingBar.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
             @Override
             public void onRatingChanged(RatingBar ratingBar, float v, boolean b) {
                 mRatingScale.setText(String.valueOf(v));
@@ -307,7 +307,7 @@ public class MyQuotesActivity extends Fragment {
                         mRatingScale.setText("");
                 }
             }
-        });
+        });*/
 
         return view;
     }
@@ -315,7 +315,7 @@ public class MyQuotesActivity extends Fragment {
     {
         mQuotesCount.setValue(quoteCount + 1);
 
-
+        // newQuote.put("QID" + (quoteCount + 1), new Quote(price, quantity, quality, commodity));
         price=Double.parseDouble(priceView.getText().toString());
         quantity=Integer.parseInt(quantityView.getText().toString());
 
@@ -330,9 +330,8 @@ public class MyQuotesActivity extends Fragment {
         mCommodityRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-              QIDString=dataSnapshot.getValue(String.class);
-                QIDString+=",QID"+(quoteCount + 1);
-                mCommodityRef.setValue(QIDString);
+                QIDString=dataSnapshot.getValue(String.class);
+
             }
 
             @Override
@@ -341,53 +340,50 @@ public class MyQuotesActivity extends Fragment {
             }
         });
 
-
+        QIDString+=",QID"+(quoteCount + 1);
+        mCommodityRef.setValue(QIDString);
 
     }
 
     public void initialize()
     {
 
-            mPriceRef = mQIDRef.child("price");
-            mQuantityRef = mQIDRef.child("quantity");
-            mQualityRef = mQIDRef.child("quality");
+        mPriceRef = mQIDRef.child("price");
+        mQuantityRef = mQIDRef.child("quantity");
+        mQualityRef = mQIDRef.child("quality");
 
-           priceView.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-                @Override
-                public void onFocusChange(View view, boolean focus) {
-                    if (focus == false) {
-                        price=Double.parseDouble(priceView.getText().toString());
-                    }
+        priceView.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View view, boolean focus) {
+                if (focus == false) {
+                    price=Double.parseDouble(priceView.getText().toString());
                 }
-            });
-            quantityView.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-                @Override
-                public void onFocusChange(View view, boolean focus) {
-                    if (focus == false) {
-                        quantity=Integer.parseInt(quantityView.getText().toString());
-                    }
+            }
+        });
+        quantityView.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View view, boolean focus) {
+                if (focus == false) {
+                    quantity=Integer.parseInt(quantityView.getText().toString());
                 }
-            });
+            }
+        });
 
     }
 
-public void remove()
-{
-    if(mQIDRef==null)
+    public void remove()
     {
-        Log.d("xyzr22","mQIDRef is null");
-    }
-    else {
-        Log.d("xyzr22", "mQIDRef is not null");
+        if(mQIDRef==null)
+        {
+            Log.d("xyzr22","mQIDRef is null");
+        }
+        else
+            Log.d("xyzr22","mQIDRef is not null");
 
-        final String quoteID = mQIDRef.getKey();
-        Log.d("xyzr22","QuoteID being deleted = "+quoteID);
+        final String quoteID=mQIDRef.getKey();
         mQIDRef.removeValue();
-
-        String newString = QIDString.replace("," + quoteID, "");
+        Log.d("xyzr22","quoteID="+quoteID);
+        String newString=QIDString.replace(","+quoteID,"");
         mCommodityRef.setValue(newString);
     }
-    }
-
 }
-
