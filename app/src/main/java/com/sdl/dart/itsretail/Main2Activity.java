@@ -10,6 +10,7 @@ import android.util.Log;
 import com.firebase.ui.auth.AuthUI;
 import com.firebase.ui.auth.ErrorCodes;
 import com.firebase.ui.auth.IdpResponse;
+import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.Arrays;
 
@@ -21,10 +22,17 @@ public class Main2Activity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main2);
-        AuthUI.IdpConfig phoneConfigWithDefaultNumber = new AuthUI.IdpConfig.PhoneBuilder()
-                .setDefaultCountryIso("in")
-                .build();
-        startActivityForResult(AuthUI.getInstance().createSignInIntentBuilder().setAvailableProviders(Arrays.asList(phoneConfigWithDefaultNumber)).setIsSmartLockEnabled(true).build(),RC_SIGN_IN);
+        FirebaseAuth auth = FirebaseAuth.getInstance();
+        if (auth.getCurrentUser() != null) {
+            // already signed in
+            Intent intent=new Intent(this,MainActivity.class);
+            startActivity(intent);
+        }else {
+            AuthUI.IdpConfig phoneConfigWithDefaultNumber = new AuthUI.IdpConfig.PhoneBuilder()
+                    .setDefaultCountryIso("in")
+                    .build();
+            startActivityForResult(AuthUI.getInstance().createSignInIntentBuilder().setAvailableProviders(Arrays.asList(phoneConfigWithDefaultNumber)).setIsSmartLockEnabled(true).build(), RC_SIGN_IN);
+        }
     }
     public void showSnackbar(int inp)
     {
