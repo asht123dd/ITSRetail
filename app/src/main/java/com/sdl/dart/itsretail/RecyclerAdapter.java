@@ -50,6 +50,7 @@ public class RecyclerAdapter extends
                             break;
                         case 2:intent = new Intent(v.getContext(), PotatoActivity.class);
                             v.getContext().startActivity(intent);
+                            break;
                         case 3:intent = new Intent(v.getContext(), OnionActivity.class);
                             v.getContext().startActivity(intent);
                             break;

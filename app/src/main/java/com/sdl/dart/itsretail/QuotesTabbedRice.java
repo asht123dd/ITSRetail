@@ -240,6 +240,7 @@ public class QuotesTabbedRice extends AppCompatActivity {
     }
     public void delete(View v)
     {
+        i--;
         removeTab(position);
     }
     public void removeTab(int position) {

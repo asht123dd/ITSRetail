@@ -24,7 +24,7 @@ public class Main2Activity extends AppCompatActivity {
         AuthUI.IdpConfig phoneConfigWithDefaultNumber = new AuthUI.IdpConfig.PhoneBuilder()
                 .setDefaultCountryIso("in")
                 .build();
-        startActivityForResult(AuthUI.getInstance().createSignInIntentBuilder().setAvailableProviders(Arrays.asList(phoneConfigWithDefaultNumber)).setIsSmartLockEnabled(false).build(),RC_SIGN_IN);
+        startActivityForResult(AuthUI.getInstance().createSignInIntentBuilder().setAvailableProviders(Arrays.asList(phoneConfigWithDefaultNumber)).setIsSmartLockEnabled(true).build(),RC_SIGN_IN);
     }
     public void showSnackbar(int inp)
     {

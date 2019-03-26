@@ -110,6 +110,7 @@ public class TabPagerAdapter extends FragmentPagerAdapter {
                     bundle.putString("RID", "RID1");
 
                     tab2 = new MyQuotesActivity();
+
                     tab2.setArguments(bundle);
                     return tab2;
                 case 2:
@@ -183,7 +184,13 @@ public class TabPagerAdapter extends FragmentPagerAdapter {
                     item = tab5;
                     break;
             }
+            Log.d("xyzr22","Removing item at "+position);
+            if(item!=null)
             item.remove();
+            else
+            {
+                Log.d("xyzr22","item null");
+            }
         }
     }
 

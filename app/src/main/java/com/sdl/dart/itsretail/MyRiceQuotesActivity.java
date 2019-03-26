@@ -382,7 +382,7 @@ public class MyRiceQuotesActivity extends Fragment {
 
         final String quoteID=mQIDRef.getKey();
         mQIDRef.removeValue();
-
+        Log.d("xyzr22","quoteID="+quoteID);
         String newString=QIDString.replace(","+quoteID,"");
         mCommodityRef.setValue(newString);
     }

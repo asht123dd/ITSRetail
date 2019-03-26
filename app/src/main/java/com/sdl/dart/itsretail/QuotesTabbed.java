@@ -244,21 +244,7 @@ public class QuotesTabbed extends AppCompatActivity {
     }
     public void createTab()
     {
-        /*QID.add("QID"+(quoteCount+1));
-        Map<String,Float> newQuote=new HashMap<>();
 
-
-        Quote quote=new Quote(0.0,0,0);
-
-        mNewQuoteRef=mQuotesRef.child("QID"+(quoteCount+1));
-        mNewQuoteRef.child("price").setValue(0.0);
-        mNewQuoteRef.child("quantity").setValue(0);
-        mNewQuoteRef.child("quality").setValue(0);
-
-        mQuotesCount.setValue(new Integer(quoteCount+1));
-        Log.d("xyzr22","Updated quoteCount = "+(quoteCount+1));
-        newQuoteList=android.text.TextUtils.join(",", QID);
-        mQuotesRef.setValue(newQuoteList);*/
 
         adapter = new TabPagerAdapter
                 (getSupportFragmentManager(),
@@ -272,6 +258,8 @@ public class QuotesTabbed extends AppCompatActivity {
     }
     public void delete(View v)
     {
+        i--;
+        Log.d("xyzr22","i="+i+"position="+position);
         removeTab(position);
     }
     public void removeTab(int position) {

@@ -28,15 +28,7 @@ public class PotatoActivity extends AppCompatActivity {
         setContentView(R.layout.activity_potato);
 
         Log.d("xyzr22","creation successfull, "+btnText);
-//        button=findViewById(R.id.button4);
-        // db=new DatabaseManager();
-        // s=db.getStatus("wheat");
-      /*  if(btnText.equalsIgnoreCase("no"))
-        {
-            button.setText("Give a quote");
-        }
-        else
-            button.setText("Update quote");*/
+
     }
     @Override
     protected void onStart(){
@@ -67,7 +59,7 @@ public class PotatoActivity extends AppCompatActivity {
     }
     public void getMyQuotes(View v){
         Log.d("xyzr22","this is getMyQuotes");
-        Intent intent = new Intent(v.getContext(), QuotesTabbed.class);
+        Intent intent = new Intent(v.getContext(), MyQuotesActivity2.class);
         intent.putExtra("commodity","potato");
         startActivity(intent);
     }

@@ -275,7 +275,7 @@ public class MyQuotesActivity extends Fragment {
         quantityView.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View view, boolean focus) {
-                if (focus == false) {
+                if (focus == false && !quantityView.getText().toString().isEmpty()) {
                     quantity = Integer.parseInt(quantityView.getText().toString());
                 }
             }
@@ -315,7 +315,7 @@ public class MyQuotesActivity extends Fragment {
     {
         mQuotesCount.setValue(quoteCount + 1);
 
-       // newQuote.put("QID" + (quoteCount + 1), new Quote(price, quantity, quality, commodity));
+
         price=Double.parseDouble(priceView.getText().toString());
         quantity=Integer.parseInt(quantityView.getText().toString());
 
@@ -331,7 +331,8 @@ public class MyQuotesActivity extends Fragment {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
               QIDString=dataSnapshot.getValue(String.class);
-
+                QIDString+=",QID"+(quoteCount + 1);
+                mCommodityRef.setValue(QIDString);
             }
 
             @Override
@@ -340,8 +341,7 @@ public class MyQuotesActivity extends Fragment {
             }
         });
 
-        QIDString+=",QID"+(quoteCount + 1);
-        mCommodityRef.setValue(QIDString);
+
 
     }
 
@@ -377,15 +377,17 @@ public void remove()
     {
         Log.d("xyzr22","mQIDRef is null");
     }
-    else
-        Log.d("xyzr22","mQIDRef is not null");
+    else {
+        Log.d("xyzr22", "mQIDRef is not null");
 
-    final String quoteID=mQIDRef.getKey();
-    mQIDRef.removeValue();
+        final String quoteID = mQIDRef.getKey();
+        Log.d("xyzr22","QuoteID being deleted = "+quoteID);
+        mQIDRef.removeValue();
 
-    String newString=QIDString.replace(","+quoteID,"");
-    mCommodityRef.setValue(newString);
-}
+        String newString = QIDString.replace("," + quoteID, "");
+        mCommodityRef.setValue(newString);
+    }
+    }
 
 }
 
