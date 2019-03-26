@@ -21,7 +21,7 @@ import com.sdl.dart.itsretail.MainActivity;
 import com.sdl.dart.itsretail.R;
 
 public class Login extends AppCompatActivity {
-   private FirebaseAuth mAuth;
+    private FirebaseAuth mAuth;
     EditText mail;
     TextView signup, forget;
     EditText pass;

@@ -12,7 +12,8 @@
         android:roundIcon="@drawable/foodlogo"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.DarkActionBar">
-        <activity android:name=".QuotesTabbedRice"></activity>
+        <activity android:name=".Main2Activity"></activity>
+        <activity android:name=".QuotesTabbedRice" />
         <activity android:name=".AllQuotesActivityRice" />
         <activity
             android:name=".OnionActivity"

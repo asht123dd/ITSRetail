@@ -23,6 +23,9 @@
     <string name="title_activity_rice">RiceActivity</string>
     <string name="title_activity_onion">OnionActivity</string>
     <string name="new_quote_line">Touch + to add a new quote</string>
+    <string name="sign_in_cancelled">Sign In Cancelled</string>
+    <string name="no_internet_connection">No Internet Connection</string>
+    <string name="unknown_error">Unknown Error</string>
     <string-array name="rice_array">
         <item>Indrayaaini</item>
         <item>Rajmandir</item>

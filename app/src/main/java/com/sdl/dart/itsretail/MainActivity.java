@@ -13,6 +13,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
+import com.firebase.ui.auth.AuthUI;
+import com.firebase.ui.auth.IdpResponse;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -24,6 +26,7 @@ import org.json.JSONObject;
 
 import java.net.URL;
 import java.text.SimpleDateFormat;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.Locale;
 
@@ -38,17 +41,24 @@ public class MainActivity extends AppCompatActivity {
     RecyclerView.LayoutManager layoutManager;
     RecyclerView.Adapter adapter;
     boolean doubleBackToExitPressedOnce = false;
+    private static final int RC_SIGN_IN = 123;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        recyclerView =
-                (RecyclerView) findViewById(R.id.recycler_view);
-        layoutManager = new LinearLayoutManager(this);
-        recyclerView.setLayoutManager(layoutManager);
-        adapter = new RecyclerAdapter();
-        recyclerView.setAdapter(adapter);
+
         mAuth = FirebaseAuth.getInstance();
+        FirebaseAuth auth = FirebaseAuth.getInstance();
+
+            // already signed in
+            recyclerView =
+                    (RecyclerView) findViewById(R.id.recycler_view);
+            layoutManager = new LinearLayoutManager(this);
+            recyclerView.setLayoutManager(layoutManager);
+            adapter = new RecyclerAdapter();
+            recyclerView.setAdapter(adapter);
+
+
        /* Rid=1;
         Log.v("xyzr22","getJSONcalled");
         Runnable runnable = new Runnable() {
@@ -154,4 +164,5 @@ public class MainActivity extends AppCompatActivity {
             }
         }, 2000);
     }
+
 }
