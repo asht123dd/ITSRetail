@@ -12,6 +12,7 @@ import com.firebase.ui.auth.AuthUI;
 import com.firebase.ui.auth.ErrorCodes;
 import com.firebase.ui.auth.IdpResponse;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUserMetadata;
 
 import java.util.Arrays;
 
@@ -19,11 +20,12 @@ public class Main2Activity extends AppCompatActivity {
     CoordinatorLayout coordinatorLayout;
     private static final int RC_SIGN_IN = 123;
     private String TAG="xyzr22";
+    FirebaseAuth auth;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main2);
-        FirebaseAuth auth = FirebaseAuth.getInstance();
+        auth = FirebaseAuth.getInstance();
         if (auth.getCurrentUser() != null) {
             // already signed in
             Intent intent=new Intent(this,MainActivity.class);
@@ -51,9 +53,18 @@ public class Main2Activity extends AppCompatActivity {
 
             // Successfully signed in
             if (resultCode == RESULT_OK) {
-                Intent intent=new Intent(this,MainActivity.class);
-                startActivity(intent);
-                finish();
+                FirebaseUserMetadata metadata=auth.getCurrentUser().getMetadata();
+                if(metadata.getCreationTimestamp()==metadata.getLastSignInTimestamp())
+                {
+                    Intent intent=new Intent(this,AddressActivity.class);
+                    startActivity(intent);
+                    finish();
+                }
+                else {
+                    Intent intent = new Intent(this, MainActivity.class);
+                    startActivity(intent);
+                    finish();
+                }
             } else {
                 // Sign in failed
                 if (response == null) {
