@@ -3,6 +3,7 @@ package com.sdl.dart.itsretail;
 import android.content.Intent;
 import android.os.Handler;
 import android.os.Message;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -15,6 +16,8 @@ import android.widget.Toast;
 
 import com.firebase.ui.auth.AuthUI;
 import com.firebase.ui.auth.IdpResponse;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -104,12 +107,13 @@ public class MainActivity extends AppCompatActivity {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.profile) {
-            mAuth.signOut();
-            Toast.makeText(MainActivity.this, "Redirecting to login...", Toast.LENGTH_SHORT).show();
-
-            Intent intent = new Intent(MainActivity.this,Login.class);
-            finishAffinity();
-            startActivity(intent);
+            AuthUI.getInstance().signOut(this).addOnCompleteListener(new OnCompleteListener<Void>() {
+                @Override
+                public void onComplete(@NonNull Task<Void> task) {
+                    startActivity(new Intent(MainActivity.this,Main2Activity.class));
+                    finish();
+                }
+            });
         }
 
         return super.onOptionsItemSelected(item);

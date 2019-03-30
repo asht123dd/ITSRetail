@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 
+import com.firebase.ui.auth.AuthMethodPickerLayout;
 import com.firebase.ui.auth.AuthUI;
 import com.firebase.ui.auth.ErrorCodes;
 import com.firebase.ui.auth.IdpResponse;
@@ -28,10 +29,11 @@ public class Main2Activity extends AppCompatActivity {
             Intent intent=new Intent(this,MainActivity.class);
             startActivity(intent);
         }else {
+            AuthMethodPickerLayout customLayout= new AuthMethodPickerLayout.Builder(R.layout.foodkrane).setEmailButtonId(R.id.mail).setPhoneButtonId(R.id.phone).build();
             AuthUI.IdpConfig phoneConfigWithDefaultNumber = new AuthUI.IdpConfig.PhoneBuilder()
                     .setDefaultCountryIso("in")
                     .build();
-            startActivityForResult(AuthUI.getInstance().createSignInIntentBuilder().setAvailableProviders(Arrays.asList(phoneConfigWithDefaultNumber)).setIsSmartLockEnabled(true).build(), RC_SIGN_IN);
+            startActivityForResult(AuthUI.getInstance().createSignInIntentBuilder().setAvailableProviders(Arrays.asList(new AuthUI.IdpConfig.EmailBuilder().build(),phoneConfigWithDefaultNumber)).setIsSmartLockEnabled(true).setAuthMethodPickerLayout(customLayout).build(), RC_SIGN_IN);
         }
     }
     public void showSnackbar(int inp)
